@@ -1,10 +1,11 @@
 import http from 'k6/http';
 import { check } from 'k6';
+import faker from 'https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js';
 
 export default function() {
     
     // setup request headers
-    const token = 'e55d0d0efc3ed6c08de87539d678e794ce71d85de89fb6ac830976b723d296be'
+    const token = __ENV.TOKEN;
     const params = {
         headers: {
             'Content-Type': 'application/json',
@@ -35,9 +36,9 @@ export default function() {
     
     // setup request body for posts
     const postId = postsData[0].id
-    let postName = userData[0].name
-    let postEmail = userData[0].email
-    let postBody = postsData[0].body
+    let postName = faker.name.firstName()
+    let postEmail = faker.internet.email()
+    let postBody = faker.lorem.paragraph()
 
     const reqBody = {
         post_id: postId,
@@ -45,6 +46,8 @@ export default function() {
         email: postEmail,
         body: postBody
     }
+
+    console.log(reqBody);
 
     const comments = http.post(`https://gorest.co.in/public/v2/posts/${postId}/comments`,
         JSON.stringify(reqBody),
