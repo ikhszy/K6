@@ -4,8 +4,15 @@
   "description": "",
   "main": "playground.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:post_comments": "k6 run ./GoREST/Basics/POST_comments.js --env TOKEN=\"e55d0d0efc3ed6c08de87539d678e794ce71d85de89fb6ac830976b723d296be\"",
+    "test:post_posts": "k6 run ./GoREST/Basics/POST_posts.js --env TOKEN=\"e55d0d0efc3ed6c08de87539d678e794ce71d85de89fb6ac830976b723d296be\"",
+    "test:post_users": "k6 run ./GoREST/Basics/POST_users.js --env TOKEN=\"e55d0d0efc3ed6c08de87539d678e794ce71d85de89fb6ac830976b723d296be\"",
+    "test:smoke_test": "k6 run ./GoREST/Load_Testing/smoketest.js --env TOKEN=\"e55d0d0efc3ed6c08de87539d678e794ce71d85de89fb6ac830976b723d296be\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
 }

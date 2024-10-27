@@ -3,7 +3,7 @@ import { check } from 'k6';
 import faker from 'https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js';
 
 export default function() {
-    
+
     // setup request headers
     const token = __ENV.TOKEN;
     const params = {

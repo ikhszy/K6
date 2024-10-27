@@ -1,5 +1,6 @@
 import http from 'k6/http';
 import { check, group } from 'k6';
+import faker from 'https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js';
 
 /*
     Smoke test consist of only 1 VU
@@ -37,7 +38,7 @@ export const options = {
 export default function() {
     
     // setup request headers
-    const token = 'e55d0d0efc3ed6c08de87539d678e794ce71d85de89fb6ac830976b723d296be'
+    const token = __ENV.TOKEN;
     const params = {
         headers: {
             'Content-Type': 'application/json',
@@ -51,8 +52,8 @@ export default function() {
 
     // setup request body for POST users
     const usersBody = {
-        name: 'john_ocean' + Math.random() * 10,
-        email: 'john_ocean' + + Math.random() * 10 +'@oceano.co.cn',
+        name: faker.name.firstName() + " " + faker.name.lastName(),
+        email: faker.internet.email(),
         gender: 'male',
         status: 'active'
     }
@@ -74,8 +75,8 @@ export default function() {
     })
 
     // setup request body for POST posts
-    const title = 'title_' + Math.random() * 10
-    const body = 'body_' + Math.random() * 10
+    const title = faker.company.catchPhrase()
+    const body = faker.lorem.paragraph()
 
     const postsBody = {
         user_id: usersId,
@@ -101,9 +102,9 @@ export default function() {
 
     // setup request body for POST comments
     const postId = postsId
-    let postName = usersBody.name
-    let postEmail = usersBody.email
-    let postBody = postsBody.body
+    let postName = faker.name.firstName()
+    let postEmail = faker.internet.email()
+    let postBody = faker.lorem.paragraph()
 
     const commentsBody = {
         post_id: postId,
